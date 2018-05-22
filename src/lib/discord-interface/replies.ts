@@ -6,7 +6,7 @@ function replies(user) {
     `I'm still downloading your electrons <@${user}>.  Be patient, i know its hard for you.`,
     `I'm still learning... give me a break.`,
     `Don't be impatient.  Do you treat your boy friend this way <@${user}>?? oh wait...`,
-    `Ha, I just got to the shoes conversation for <@Avalon#5155>.  Guess I don't need to shame her, you guys have it covered`
+    `Ha, I just got to the shoes conversation for <@239283143331414017>.  Guess I don't need to shame her, you guys have it covered`
   ];
   return sample(replies);
 }

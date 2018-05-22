@@ -11,6 +11,7 @@ client.on('ready', () => {
 client.on('message', message => {
   // If the message is "ping"
   const author = message.author.id;
+  console.log(message);
   if (message.content === 'ping') {
     // Send "pong" to the same channel
     message.channel.send('pong');
