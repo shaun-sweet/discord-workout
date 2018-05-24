@@ -16,18 +16,6 @@ export function bootStrapDiscordBot(sheetsClient) {
       const action = parser(command);
       action.exec(message);
     }
-    // if (message.content === 'ping') {
-    //   // Send "pong" to the same channel
-    //   message.channel.send('pong');
-    // }
-    // if (message.content.includes('.shame')) {
-    //   message
-    //     .react('🤔')
-    //     .then(console.log)
-    //     .catch(console.error);
-    //   // message.channel.send(`I'm still figuring out how to shame you peasents...`);
-    //
-    // }
   });
 
   client.login(token);
