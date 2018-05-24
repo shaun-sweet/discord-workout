@@ -6,6 +6,7 @@ const path = require('path');
 // If modifying these scopes, delete credentials.json.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 const TOKEN_PATH = 'credentials.json';
+const SHEET_ID = '1aG4AChm-5Zx-sBhewA7lA1wQ5TRvmV19ryH94DR9qtg';
 
 // Load client secrets from a local file.
 fs.readFile('client_secret.json', (err, content) => {
@@ -76,7 +77,7 @@ function listMajors(auth) {
   const sheets = google.sheets({ auth, version: 'v4' });
   sheets.spreadsheets.values.get(
     {
-      spreadsheetId: '1aG4AChm-5Zx-sBhewA7lA1wQ5TRvmV19ryH94DR9qtg',
+      spreadsheetId: SHEET_ID,
       range: 'participants'
     },
     (err, { data }) => {

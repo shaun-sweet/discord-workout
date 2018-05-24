@@ -1,6 +1,6 @@
 import { Client } from 'discord.js';
 
-import cmdParser from './cmdParser';
+import { parser } from './cmds';
 
 const client = new Client();
 const token = 'NDQ4NTMwMzY1OTcyMzQ4OTM4.DeXkRQ.a5SyllJuhqzrqGW3FLd_a5h_ZKI';
@@ -10,12 +10,11 @@ client.on('ready', () => {
 
 // Create an event listener for messages
 client.on('message', message => {
-  console.log(message);
-
   const command = message.content.split(' ');
+  console.log(command);
   if (command[0] === '.shame') {
-    const action = cmdParser(command);
-    action(message);
+    const action = parser(command);
+    action.exec(message);
   }
   // if (message.content === 'ping') {
   //   // Send "pong" to the same channel

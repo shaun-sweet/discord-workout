@@ -1,5 +1,3 @@
-import signup from './signup';
-
-export default {
-  signup
-};
+import thisWeek from './thisWeek';
+import help from './help';
+export const actions = { THISWEEK: thisWeek, HELP: help };

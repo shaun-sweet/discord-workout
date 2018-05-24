@@ -2,6 +2,7 @@ import { sample } from 'lodash';
 
 function replies(user) {
   const replies = [
+    '<@230536301256900609>',
     `Careful <@${user}>, you'll be first on my list...`,
     `I'm still downloading your electrons <@${user}>.  Be patient, i know its hard for you.`,
     `I'm still learning... give me a break.`,
