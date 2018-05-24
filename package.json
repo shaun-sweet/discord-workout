@@ -5,14 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "start": "nodemon ./dist/main.js"
   },
   "lint-staged": {
-    "*.ts": [
-      "prettier --single-quote --write",
-      "tslint --fix",
-      "git add"
-    ]
+    "*.ts": ["prettier --single-quote --write", "tslint --fix", "git add"]
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +22,7 @@
     "@types/node": "^10.1.2",
     "husky": "^0.14.3",
     "lint-staged": "^7.1.2",
+    "nodemon": "^1.17.5",
     "prettier": "^1.12.1",
     "tslint": "^5.10.0",
     "tslint-config-airbnb": "^5.9.2",
