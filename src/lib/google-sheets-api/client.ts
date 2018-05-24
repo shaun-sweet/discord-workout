@@ -8,20 +8,14 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 const TOKEN_PATH = 'credentials.json';
 const SHEET_ID = '1aG4AChm-5Zx-sBhewA7lA1wQ5TRvmV19ryH94DR9qtg';
 
-// Load client secrets from a local file.
-fs.readFile('client_secret.json', (err, content) => {
-  if (err) return console.log('Error loading client secret file:', err);
-  // Authorize a client with credentials, then call the Google Sheets API.
-  authorize(JSON.parse(content), listMajors);
-});
-
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
  * given callback function.
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials, callback) {
+
+function authorize(credentials) {
   const { client_secret, client_id, redirect_uris } = credentials.installed;
   const oAuth2Client = new google.auth.OAuth2(
     client_id,
@@ -29,12 +23,15 @@ function authorize(credentials, callback) {
     redirect_uris[0]
   );
 
-  // Check if we have previously stored a token.
-  fs.readFile(TOKEN_PATH, (err, token) => {
-    if (err) return getNewToken(oAuth2Client, callback);
+  try {
+    // Check if we have previously stored a token.
+    const token = fs.readFileSync(TOKEN_PATH, 'utf8');
     oAuth2Client.setCredentials(JSON.parse(token));
-    callback(oAuth2Client);
-  });
+    return oAuth2Client;
+  } catch (err) {
+    console.log(err);
+    return getNewToken(oAuth2Client);
+  }
 }
 
 /**
@@ -43,7 +40,7 @@ function authorize(credentials, callback) {
  * @param {google.auth.OAuth2} oAuth2Client The OAuth2 client to get token for.
  * @param {getEventsCallback} callback The callback for the authorized client.
  */
-function getNewToken(oAuth2Client, callback) {
+function getNewToken(oAuth2Client) {
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES
@@ -56,14 +53,12 @@ function getNewToken(oAuth2Client, callback) {
   rl.question('Enter the code from that page here: ', code => {
     rl.close();
     oAuth2Client.getToken(code, (err, token) => {
-      if (err) return callback(err);
       oAuth2Client.setCredentials(token);
       // Store the token to disk for later program executions
       fs.writeFile(TOKEN_PATH, JSON.stringify(token), err => {
         if (err) console.error(err);
         console.log('Token stored to', TOKEN_PATH);
       });
-      callback(oAuth2Client);
     });
   });
 }
@@ -73,7 +68,7 @@ function getNewToken(oAuth2Client, callback) {
  * @see https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
-function listMajors(auth) {
+export function listMajors(auth) {
   const sheets = google.sheets({ auth, version: 'v4' });
   sheets.spreadsheets.values.get(
     {
@@ -94,4 +89,13 @@ function listMajors(auth) {
       }
     }
   );
+}
+
+export function client() {
+  try {
+    const content = fs.readFileSync('client_secret.json', 'utf8');
+    return authorize(JSON.parse(content));
+  } catch (err) {
+    console.log('Error loading client secret file:', err);
+  }
 }
