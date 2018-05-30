@@ -6,10 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "precommit": "lint-staged",
-    "start": "nodemon ./dist/main.js"
+    "start": "nodemon ./dist/main.js",
+    "build": "babel src --out-dir dist",
+    "dev": "babel src --out-dir dist --watch"
   },
   "lint-staged": {
-    "*.ts": ["prettier --single-quote --write", "tslint --fix", "git add"]
+    "*.js": [
+      "prettier --single-quote --write",
+      "eslint --fix",
+      "git add"
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -19,14 +25,20 @@
     "lodash": "^4.17.10"
   },
   "devDependencies": {
-    "@types/node": "^10.1.2",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-prettier-standard": "^2.0.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.1.2",
     "nodemon": "^1.17.5",
-    "prettier": "^1.12.1",
-    "tslint": "^5.10.0",
-    "tslint-config-airbnb": "^5.9.2",
-    "tslint-config-prettier": "^1.13.0",
-    "typescript": "^2.8.3"
+    "prettier": "^1.13.3"
   }
 }

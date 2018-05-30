@@ -1,4 +1,4 @@
-import { sample } from 'lodash';
+import { sample } from 'lodash'
 
 function replies(user) {
   const replies = [
@@ -10,9 +10,9 @@ function replies(user) {
     `Don't be impatient.  Do you treat your boy friend this way <@${user}>?? oh wait...`,
 
     `Ha, I just got to the shoes conversation for <@239283143331414017>.  Guess I don't need to shame her, you guys have it covered`
-  ];
+  ]
 
-  return sample(replies);
+  return sample(replies)
 }
 
-export default replies;
+export default replies
